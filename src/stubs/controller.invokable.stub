@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Http\Controllers\BaseController;
+use Illuminate\Http\Request;
+
+final class {{ class }} extends BaseController
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
+    {
+        //
+    }
+}

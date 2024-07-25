@@ -1,0 +1,21 @@
+name: common commit
+
+on:
+  push:
+    paths:
+      - .github/workflows/common.yaml
+    branches:
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'main'
+      - 'develop'
+
+jobs:
+  php-cs-fixer:
+    - name: Check out the repository to the runner
+      uses: actions/checkout@v4
+
+    - name: php-cs-fixer fix
+      uses: docker-compose exec app ./vendor/bin/php-cs-fixer fix -v --dif
+
