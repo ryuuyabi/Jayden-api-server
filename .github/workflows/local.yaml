@@ -40,7 +40,7 @@ jobs:
 
       - name: laravel setting
         run: |
-          docker-compose exec -T app cp .env.local .env
+          cp src/.env.local src/.env
           docker-compose exec -T app php artisan key:generate
           docker-compose exec -T app chmod -R 777 storage bootstrap/cache
 
@@ -51,4 +51,3 @@ jobs:
       - name: test
         run: |
           docker-compose exec -T app php artisan test
-
