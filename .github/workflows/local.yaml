@@ -44,11 +44,11 @@ jobs:
           docker-compose exec app php artisan key:generate
           docker-compose exec app chmod -R 777 storage bootstrap/cache
 
-      name: db setting
+      - name: db setting
         run: |
           docker-compose exec app php artisan migrate
 
-      name: test
+      - name: test
         run: |
           docker-compose exec app php artisan test
 
