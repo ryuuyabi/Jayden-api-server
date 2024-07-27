@@ -16,5 +16,8 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Install Dependencies
-        run: npm install
+      - name: docker build
+        run: docker-compose build
+
+      - name: docker up -d
+        run: docker-compose up -d
