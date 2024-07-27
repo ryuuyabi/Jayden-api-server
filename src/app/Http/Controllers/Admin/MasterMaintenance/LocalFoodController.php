@@ -69,7 +69,7 @@ final class LocalFoodController extends BaseController
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->flashMessage($action($request->validated(), $local_food_id));
+        return $this->flashMessage($action($local_food_id, $request->validated()));
     }
 
     /**

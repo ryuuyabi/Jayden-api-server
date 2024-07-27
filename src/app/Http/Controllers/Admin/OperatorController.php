@@ -20,7 +20,7 @@ final class OperatorController extends BaseController
     /**
      * 管理者一覧を取得します
      *
-     * @param Operator $operator
+     * @param Request $request
      * @param OperatorIndexAction $action
      * @return JsonResponse
      */

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\LogoutController;
+use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\SocialiteLoginController;
 use App\Http\Controllers\Admin\MailMagazineController;
 use App\Http\Controllers\Admin\MasterMaintenance\DistrictController;
@@ -27,6 +28,9 @@ Route::name('admin.')->group(function () {
                 Route::post('/store', 'store')->name('store');
             });
             Route::prefix('/logout')->name('logout.')->controller(LogoutController::class)->group(function () {
+                Route::post('/store', 'store')->name('store');
+            });
+            Route::prefix('/register')->name('register.')->controller(RegisterController::class)->group(function () {
                 Route::post('/store', 'store')->name('store');
             });
         });

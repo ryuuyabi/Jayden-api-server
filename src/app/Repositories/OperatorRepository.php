@@ -23,7 +23,7 @@ final class OperatorRepository implements OperatorRepositoryInterface
         $this->model = new Operator();
     }
 
-    public function save(array $store_data): Model
+    public function save(array $store_data, bool $is_fetch_result = false): Model|null
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 

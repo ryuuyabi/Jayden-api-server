@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 final class MailMagazineController extends BaseController
 {
-    public function index()
+    public function index(): void
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
     }
 
-    public function store(MailMagazineStoreRequest $request, MailMagazineStoreAction $action)
+    public function store(MailMagazineStoreRequest $request, MailMagazineStoreAction $action): void
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 

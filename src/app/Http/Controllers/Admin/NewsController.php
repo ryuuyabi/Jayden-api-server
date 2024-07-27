@@ -29,9 +29,9 @@ final class NewsController extends BaseController
      * お知らせ一覧を取得します
      *
      * @param News $news
-     * @return void
+     * @return JsonResponse
      */
-    public function index(News $news)
+    public function index(News $news): JsonResponse
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
@@ -52,7 +52,14 @@ final class NewsController extends BaseController
         $action($request->validated());
     }
 
-    public function show(int $news_id, News $news)
+    /**
+     * お知らせの詳細を取得します
+     *
+     * @param integer $news_id
+     * @param News $news
+     * @return JsonResponse
+     */
+    public function show(int $news_id, News $news): JsonResponse
     {
         return $this->ApiJsonFormat($news->find($news_id)->toArray());
     }
