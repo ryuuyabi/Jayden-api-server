@@ -24,3 +24,31 @@ jobs:
 
       - name: docker up -d
         run: docker-compose up -d
+
+      - name: composer install
+        run: |
+          docker-compose exec app php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          docker-compose exec app php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          docker-compose exec app php composer-setup.php
+          docker-compose exec app php -r "unlink('composer-setup.php');"
+
+      - name: php version
+        run: docker-compose exec app php --version
+
+      - name: composer version
+        run: docker-compose exec app composer --version
+
+      - name: laravel setting
+        run: |
+          docker-compose exec app cp .env.example .env
+          docker-compose exec app php artisan key:generate
+          docker-compose exec app chmod -R 777 storage bootstrap/cache
+
+      name: db setting
+        run: |
+          docker-compose exec app php artisan migrate
+
+      name: test
+        run: |
+          docker-compose exec app php artisan test
+
