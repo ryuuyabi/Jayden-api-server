@@ -2,6 +2,14 @@
 
 namespace App\Models;
 
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|LocalFood newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LocalFood newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LocalFood query()
+ * @mixin \Eloquent
+ */
 final class LocalFood extends BaseModel
 {
     /**

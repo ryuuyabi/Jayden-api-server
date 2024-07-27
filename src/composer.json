@@ -13,6 +13,7 @@
         "league/flysystem-aws-s3-v3": "^3.28"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.1",
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.59",
         "laravel/pint": "^1.13",
@@ -22,7 +23,8 @@
         "nunomaduro/larastan": "^2.9",
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^1.11",
-        "phpunit/phpunit": "^11.0.1"
+        "phpunit/phpunit": "^11.0.1",
+        "rector/rector": "^1.2"
     },
     "autoload": {
         "psr-4": {

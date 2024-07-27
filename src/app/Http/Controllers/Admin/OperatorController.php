@@ -9,7 +9,6 @@ use App\Actions\Admin\Operator\OperatorStoreAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Operator\OperatorDestroyRequest;
 use App\Http\Requests\Admin\Operator\OperatorStoreRequest;
-use App\Models\Operator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;

@@ -8,7 +8,6 @@ use App\Exceptions\NotFoundOperatorException;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Auth\Login\LoginStoreRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 final class LoginController extends BaseController

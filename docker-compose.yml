@@ -38,6 +38,21 @@ services:
         ports:
             - ${DB_PORT}:3306
 
+    db-testing:
+        container_name: jayden_db-testing
+        image: mysql:8.0
+        cap_add:
+            - SYS_NICE
+        volumes:
+            - ./data/db-store:/var/lib/mysql
+            - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE_TESTING}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD_TESTING}
+            - TZ=${TZ}
+        ports:
+            - ${DB_PORT_TESTING}:3306
+
     mailhog:
         container_name: jayden_mailhog
         image: mailhog/mailhog:latest
