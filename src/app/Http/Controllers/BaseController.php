@@ -8,11 +8,22 @@ use Illuminate\Support\Facades\Log;
 
 abstract class BaseController
 {
+    /**
+     * クライアントに返すレスポンスの形式です
+     *
+     * @param array<mixed> $data
+     * @param ApiDataType $data_type
+     * @param StatusCode $status
+     * @param string $message
+     * @param string $redirect_path
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function ApiJsonFormat(
         array $data,
         object $data_type = ApiDataType::NORMAL,
         object $status = StatusCode::SUCCESS,
-        string $message = 'success'
+        string $message = 'success',
+        string $redirect_path = '',
     ): \Illuminate\Http\JsonResponse {
         $api_data = response()
             ->json([
@@ -20,6 +31,7 @@ abstract class BaseController
                 'status' => $status,
                 'data_type' => $data_type,
                 'data' => $data,
+                'redirect_path' => $redirect_path,
             ]);
         Log::debug('response api data : ' . $api_data);
         return $api_data;

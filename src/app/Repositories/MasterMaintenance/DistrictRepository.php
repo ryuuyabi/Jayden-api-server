@@ -2,6 +2,8 @@
 
 namespace App\Repositories\MasterMaintenance;
 
+use App\Concerns\Repository\RepositorySaveHandle;
+use App\Concerns\Repository\RepositoryUpdateHandle;
 use App\Models\District;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -9,42 +11,14 @@ use Illuminate\Support\Facades\Log;
 
 final class DistrictRepository implements DistrictRepositoryInterface
 {
+    use RepositorySaveHandle;
+    use RepositoryUpdateHandle;
+
     private District $model;
 
     public function __construct()
     {
         $this->model = new District();
-    }
-
-    /**
-     * 新規登録
-     *
-     * @param array $store_data
-     * @return Model
-     */
-    public function save(array $store_data): Model
-    {
-        Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
-
-        $model = $this->model;
-        $model->fill($store_data)->save();
-        return $model->refresh();
-    }
-
-    /**
-     * 更新
-     *
-     * @param integer $prefecture_id
-     * @param array $update_data
-     * @return Model
-     */
-    public function update(int $prefecture_id, array $update_data): Model
-    {
-        Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
-
-        $model = $this->model->findOrFail($prefecture_id);
-        $model->fill($update_data)->save();
-        return $model->refresh();
     }
 
     /**

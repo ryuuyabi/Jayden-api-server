@@ -1,0 +1,5 @@
+{
+	"phpstan.binPath": "src/vendor/bin/phpstan",
+	"phpstan.configFile": "src/phpstan.neon",
+	"intelephense.environment.phpVersion": "8.3.0"
+}

@@ -26,7 +26,7 @@ final class LocalFoodUpdateAction
      * 郷土料理の更新を行います
      *
      * @param integer $local_food_id
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return string
      */
     public function __invoke(int $local_food_id, array $validate_data): string

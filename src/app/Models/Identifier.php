@@ -2,6 +2,24 @@
 
 namespace App\Models;
 
+/**
+ * 
+ *
+ * @property string $sub
+ * @property int $identifier_type 識別子種類
+ * @property \Illuminate\Support\Carbon $created_at 作成日
+ * @property \Illuminate\Support\Carbon|null $updated_at 更新日
+ * @property string|null $deleted_at 削除日
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereIdentifierType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereSub($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 final class Identifier extends BaseModel
 {
     /**

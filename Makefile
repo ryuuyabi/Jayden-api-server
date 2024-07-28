@@ -21,7 +21,13 @@ refresh:
 	${APP_CMD} php artisan migrate:refresh --seed
 route-list:
 	${APP_CMD} php artisan route:list
+test:
+	${APP_CMD} php artisan test
 tail-log:
 	tail -f ./src/storage/logs/laravel.log
 sql:
 	${DOCKER_CMD} exec -it db mysql -u root -D jayden -proot
+rector:
+	${APP_CMD} vendor/bin/rector process
+model-ide-helper:
+	${APP_CMD} php artisan ide-helper:models -W

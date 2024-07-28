@@ -29,7 +29,7 @@ services:
         cap_add:
             - SYS_NICE
         volumes:
-            - ./data/db-store:/var/lib/mysql
+            - ./data/db-testing:/var/lib/mysql
             - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
         environment:
             - MYSQL_DATABASE=${DB_DATABASE}
@@ -38,10 +38,25 @@ services:
         ports:
             - ${DB_PORT}:3306
 
+    db-testing:
+        container_name: jayden_db-testing
+        image: mysql:8.0
+        cap_add:
+            - SYS_NICE
+        volumes:
+            - ./data/db-testing-store:/var/lib/mysql
+            - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE_TESTING}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD_TESTING}
+            - TZ=${TZ}
+        ports:
+            - ${DB_PORT_TESTING}:3306
+
     mailhog:
         container_name: jayden_mailhog
         image: mailhog/mailhog:latest
         ports:
-            - ${MAIL_HOG_PORT}:8025
-            - 1025:1025
+            - ${MAIL_WEB_HOG_PORT}:8025
+            - ${MAIL_HOG_PORT}:1025
         platform: linux/x86_64

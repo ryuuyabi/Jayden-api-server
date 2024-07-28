@@ -26,7 +26,7 @@ final class DistrictUpdateAction
      * 市区町村の更新を行います
      *
      * @param integer $district_id
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return string
      */
     public function __invoke(int $district_id, array $validate_data): string

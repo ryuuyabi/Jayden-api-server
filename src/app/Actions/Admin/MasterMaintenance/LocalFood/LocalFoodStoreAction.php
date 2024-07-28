@@ -25,7 +25,7 @@ final class LocalFoodStoreAction
     /**
      * 郷土料理の新規登録を行います
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return string
      */
     public function __invoke(array $validate_data): string

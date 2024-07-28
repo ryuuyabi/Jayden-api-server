@@ -6,7 +6,6 @@ use App\Concerns\Repository\RepositoryFindHandle;
 use App\Concerns\Repository\RepositorySoftDeleteHandle;
 use App\Models\Operator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +22,7 @@ final class OperatorRepository implements OperatorRepositoryInterface
         $this->model = new Operator();
     }
 
-    public function save(array $store_data): Model
+    public function save(array $store_data, bool $is_fetch_result = false): Model|null
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 

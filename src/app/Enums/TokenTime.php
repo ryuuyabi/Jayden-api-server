@@ -23,9 +23,9 @@ enum TokenTime: int
     /**
      * トークンの期限時間をunixで取得
      *
-     * @return void
+     * @return int|float|string
      */
-    public function getDeadlineUnixTime()
+    public function getDeadlineUnixTime(): int|float|string
     {
         return match ($this) {
             self::OPERATOR_ACCESS => self::OPERATOR_ACCESS->getDeadlineCarbon()->timestamp,

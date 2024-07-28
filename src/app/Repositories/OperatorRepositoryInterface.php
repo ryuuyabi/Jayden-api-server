@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface OperatorRepositoryInterface
 {
-    public function save(array $store_data): Model;
+    public function save(array $store_data, bool $is_fetch_result = false): Model|null;
     public function softDelete(int $id): void;
     public function findOrFail(int $id): Model;
     public function findFromSub(string $sub): Model;

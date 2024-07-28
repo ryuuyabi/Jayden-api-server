@@ -2,6 +2,22 @@
 
 namespace App\Models;
 
+/**
+ * 
+ *
+ * @property int $operator_id
+ * @property string $access_token アクセストークン
+ * @property string|null $refresh_token リフレッシュトークン
+ * @property string $expired_at
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken whereAccessToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken whereExpiredAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken whereOperatorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OperatorToken whereRefreshToken($value)
+ * @mixin \Eloquent
+ */
 final class OperatorToken extends BaseModel
 {
     protected $table = 'operator_tokens';

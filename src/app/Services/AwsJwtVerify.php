@@ -13,7 +13,7 @@ final class AwsJwtVerify
      * jwtをデコードします
      *
      * @param string $jwt
-     * @return object|null
+     * @return object
      */
     public function decode(string $jwt)
     {

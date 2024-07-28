@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Concerns\Repository\RepositoryFindHandle;
 use App\Exceptions\NotFoundNewsException;
 use App\Models\NewsModel as News;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,7 +24,7 @@ final class NewsRepository implements NewsRepositoryInterface
      */
     public function getNewsListArrayForUserSide(): LengthAwarePaginator
     {
-        $news = $this->model->active()->orderByDesc('id');
+        $news = $this->model->active()->orderByDesc('id')->id;
         return $news->paginate(15);
     }
 

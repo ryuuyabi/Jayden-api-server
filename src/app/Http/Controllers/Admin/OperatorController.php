@@ -9,7 +9,6 @@ use App\Actions\Admin\Operator\OperatorStoreAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Operator\OperatorDestroyRequest;
 use App\Http\Requests\Admin\Operator\OperatorStoreRequest;
-use App\Models\Operator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -20,7 +19,7 @@ final class OperatorController extends BaseController
     /**
      * 管理者一覧を取得します
      *
-     * @param Operator $operator
+     * @param Request $request
      * @param OperatorIndexAction $action
      * @return JsonResponse
      */

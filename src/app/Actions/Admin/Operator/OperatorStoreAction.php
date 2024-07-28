@@ -42,7 +42,7 @@ final class OperatorStoreAction
     /**
      * 管理者の作成を行います
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return void
      */
     public function __invoke(array $validate_data): void

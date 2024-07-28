@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\LogoutController;
+use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\SocialiteLoginController;
 use App\Http\Controllers\Admin\MailMagazineController;
 use App\Http\Controllers\Admin\MasterMaintenance\DistrictController;
@@ -20,6 +21,9 @@ Route::name('admin.')->group(function () {
     Route::prefix('/api')->name('api.')->group(function () {
         // 認証系
         Route::prefix('/auth')->name('auth.')->group(function () {
+            Route::prefix('/register')->name('register.')->controller(RegisterController::class)->group(function () {
+                Route::post('/store', 'store')->name('store');
+            });
             Route::prefix('/login')->name('login.')->controller(LoginController::class)->group(function () {
                 Route::post('/store', 'store')->name('store');
             });

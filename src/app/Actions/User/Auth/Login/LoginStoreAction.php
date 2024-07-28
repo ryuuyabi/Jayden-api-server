@@ -34,7 +34,7 @@ final class LoginStoreAction
     /**
      * ログインを行います
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return void
      */
     public function __invoke(array $validate_data)

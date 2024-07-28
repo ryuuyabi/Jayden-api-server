@@ -13,6 +13,9 @@ final class Cognito
     private string $client_secret;
     private string $user_pool_id;
 
+    /**
+     * instance
+     */
     public function __construct()
     {
         $this->initialization();
@@ -21,7 +24,12 @@ final class Cognito
         $this->user_pool_id = config('aws.cognito_user_pool_id');
     }
 
-    private function initialization()
+    /**
+     * init
+     *
+     * @return void
+     */
+    private function initialization(): void
     {
         $this->client_provider = new CognitoIdentityProviderClient(
             [

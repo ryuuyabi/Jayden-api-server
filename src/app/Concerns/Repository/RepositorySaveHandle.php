@@ -10,15 +10,17 @@ trait RepositorySaveHandle
     /**
      * 新規登録
      *
-     * @param array $store_data
-     * @return Model
+     * @param array<string, mixed> $store_data
+     * @param boolean $is_fetch_result
+     * @return Model|null
      */
-    public function save(array $store_data): Model
+    public function save(array $store_data, bool $is_fetch_result = false): Model|null
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
         $model = $this->model;
         $model->fill($store_data)->save();
-        return $model->refresh();
+
+        return $is_fetch_result ? $model->refresh() : null;
     }
 }

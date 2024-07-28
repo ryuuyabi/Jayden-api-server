@@ -25,7 +25,7 @@ final class OperatorDestroyAction
     /**
      * 管理者の削除を行います
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return void
      */
     public function __invoke(array $validate_data)
