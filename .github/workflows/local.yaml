@@ -7,6 +7,7 @@ on:
       - 'bugfix/**'
       - 'hotfix/**'
       - 'modify/**'
+      - 'release/**'
       - 'main'
       - 'develop'
 
@@ -42,7 +43,7 @@ jobs:
 
       - name: laravel setting
         run: |
-          docker-compose exec -T app .env.local .env
+          docker-compose exec -T app cp .env.local .env
           docker-compose exec -T app php artisan key:generate
           docker-compose exec -T app chmod -R 777 storage bootstrap/cache
 
