@@ -74,8 +74,8 @@ final class LoginStoreAction
     /**
      * 管理者のログインを行います
      *
-     * @param array $validate_data
-     * @return array
+     * @param array<string, mixed> $validate_data
+     * @return array<string, string>
      */
     public function __invoke(array $validate_data): array
     {
@@ -118,8 +118,8 @@ final class LoginStoreAction
     /**
      * jwtでクライアントに受け渡すpayloadの値を作成します
      *
-     * @param Operator $account
-     * @return array
+     * @param Operator $operator
+     * @return array<string, float|int|string|null>
      */
     private function createJwtPayload(Operator $operator): array
     {

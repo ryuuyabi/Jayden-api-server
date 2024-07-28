@@ -11,7 +11,7 @@ trait RepositoryUpdateHandle
     /**
      * 更新
      *
-     * @param array<string, array> $update_data
+     * @param array<string, mixed> $update_data
      * @param integer $id
      * @param boolean $is_fetch_result
      * @return Model|null

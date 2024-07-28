@@ -6,6 +6,7 @@ on:
       - 'feature/**'
       - 'bugfix/**'
       - 'hotfix/**'
+      - 'modify/**'
       - 'main'
       - 'develop'
 
@@ -41,13 +42,16 @@ jobs:
 
       - name: laravel setting
         run: |
-          cp src/.env.local src/.env
+          docker-compose exec -T app .env.local .env
           docker-compose exec -T app php artisan key:generate
           docker-compose exec -T app chmod -R 777 storage bootstrap/cache
 
       - name: db setting
         run: |
           docker-compose exec -T app php artisan migrate
+
+      - name: delete unnecessary use module
+        run: docker-compose exec -T app vendor/bin/rector process
 
       - name: test
         run: |

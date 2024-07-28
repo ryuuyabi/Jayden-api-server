@@ -26,7 +26,12 @@ final class RegisterStoreRequest extends BaseFormRequest
         ];
     }
 
-    public function messages()
+    /**
+     * バリデーションメッセージ
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
             'email.required' => 'メールアドレスは必須です',

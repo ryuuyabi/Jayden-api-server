@@ -44,7 +44,7 @@ final class RegisterStoreAction
     /**
      * 未認証ユーザを作成する
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return void
      */
     public function __invoke(array $validate_data)
@@ -72,7 +72,7 @@ final class RegisterStoreAction
      * cognitoを登録します
      * cognito情報を持つアカウントを作成します
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return void
      */
     private function createCognitoUser(array $validate_data)

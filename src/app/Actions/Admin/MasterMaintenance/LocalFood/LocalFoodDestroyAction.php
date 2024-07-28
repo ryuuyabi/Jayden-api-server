@@ -25,7 +25,7 @@ final class LocalFoodDestroyAction
     /**
      * 郷土料理の削除を行います
      *
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return string
      */
     public function __invoke(array $validate_data): string

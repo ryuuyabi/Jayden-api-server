@@ -29,7 +29,7 @@ services:
         cap_add:
             - SYS_NICE
         volumes:
-            - ./data/db-store:/var/lib/mysql
+            - ./data/db-testing:/var/lib/mysql
             - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
         environment:
             - MYSQL_DATABASE=${DB_DATABASE}
@@ -44,7 +44,7 @@ services:
         cap_add:
             - SYS_NICE
         volumes:
-            - ./data/db-store:/var/lib/mysql
+            - ./data/db-testing-store:/var/lib/mysql
             - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
         environment:
             - MYSQL_DATABASE=${DB_DATABASE_TESTING}

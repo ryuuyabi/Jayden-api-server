@@ -22,7 +22,7 @@ final class PrefectureUpdateAction
      * 都道府県の更新を行います
      *
      * @param integer $prefecture_id
-     * @param array $validate_data
+     * @param array<string, mixed> $validate_data
      * @return string
      */
     public function __invoke(int $prefecture_id, array $validate_data): string
