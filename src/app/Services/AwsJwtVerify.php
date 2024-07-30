@@ -20,6 +20,7 @@ final class AwsJwtVerify
         $jwks = $this->fetchJWKs();
         $kid = $this->getKid($jwt);
         $jwk = $this->getJwk($jwks, $kid);
+        JWT::$leeway = 60;
         return JWT::decode($jwt, $jwk);
     }
 

@@ -20,6 +20,8 @@ class ModelProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Model::shouldBeStrict(!config('app.env') !== 'production');
+        $is_none_production = !config('app.env') !== 'production';
+        Model::shouldBeStrict($is_none_production);
+        Model::preventLazyLoading($is_none_production);
     }
 }

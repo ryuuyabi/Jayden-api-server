@@ -4,7 +4,6 @@ namespace App\Repositories\MasterMaintenance;
 
 use App\Concerns\Repository\RepositoryFindHandle;
 use App\Concerns\Repository\RepositorySaveHandle;
-use App\Concerns\Repository\RepositorySoftDeleteHandle;
 use App\Concerns\Repository\RepositoryUpdateHandle;
 use App\Models\LocalFood;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,7 +14,6 @@ final class LocalFoodRepository implements LocalFoodRepositoryInterface
     use RepositorySaveHandle;
     use RepositoryUpdateHandle;
     use RepositoryFindHandle;
-    use RepositorySoftDeleteHandle;
 
     private LocalFood $model;
 
@@ -27,7 +25,7 @@ final class LocalFoodRepository implements LocalFoodRepositoryInterface
     /**
      * 郷土料理一覧を取得します
      *
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<LocalFood>
      */
     public function getLocalFoodsLengthAwarePaginatorSideOperator(): LengthAwarePaginator
     {

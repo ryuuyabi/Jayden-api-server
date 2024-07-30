@@ -25,14 +25,14 @@ final class TopIndexAction
     /**
      * TOP画面に表示するデータを取得する
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function __invoke(): array
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
         return [
-            'news_list' => $this->news_repository->getNewsListArrayForOperatorTop(5),
+            'news_list' => $this->news_repository->getNewsListForOperatorTop()->toArray(),
         ];
     }
 }

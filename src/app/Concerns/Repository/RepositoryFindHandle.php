@@ -3,15 +3,18 @@
 namespace App\Concerns\Repository;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
 trait RepositoryFindHandle
 {
     /**
-     * 詳細を取得します
+     * お知らせ詳細を取得します
      *
      * @param integer $id
      * @return Model
+     *
+     * @throws ModelNotFoundException
      */
     public function findOrFail(int $id): Model
     {

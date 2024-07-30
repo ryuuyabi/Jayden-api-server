@@ -11,13 +11,27 @@ use Illuminate\Support\Facades\Log;
 
 abstract class BaseFormRequest extends FormRequest
 {
+    /**
+     * @var boolean
+     */
     protected bool $validate_jwt = true;
 
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return boolean
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Handle validation response
+     *
+     * @param Validator $validator
+     * @return void
+     */
     protected function failedValidation(Validator $validator): void
     {
         Log::debug('バリデーションエラーが実行されました');
@@ -31,5 +45,23 @@ abstract class BaseFormRequest extends FormRequest
         $response_json = response()->json($response);
         Log::debug($response_json);
         throw new HttpResponseException($response_json);
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        Log::info('validation start');
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation(): void
+    {
+        Log::info('validation end');
     }
 }

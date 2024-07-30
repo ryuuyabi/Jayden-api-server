@@ -2,7 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Exceptions\NotFoundNewsException;
+use App\Concerns\Repository\RepositoryFindHandle;
+use App\Concerns\Repository\RepositorySaveHandle;
 use App\Models\NewsModel as News;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 final class NewsRepository implements NewsRepositoryInterface
 {
+    use RepositoryFindHandle;
+
     private News $model;
 
     public function __construct()
@@ -29,33 +32,12 @@ final class NewsRepository implements NewsRepositoryInterface
     }
 
     /**
-     * 5件取得
-     *
-     * @return Collection
-     */
-    public function getNewsListLimitFiveArray(): Collection
-    {
-        return $this->model->active()->limit(5)->orderByDesc('id')->get();
-    }
-
-    /**
      * お知らせ一覧を取得
      *
      * @return Collection
      */
-    public function getNewsListArrayForOperatorTop(): Collection
+    public function getNewsListForOperatorTop(): Collection
     {
         return $this->model->selectTop()->targetOperator()->active()->notDeleted()->limit(5)->orderByDesc('id')->get();
-    }
-
-    /**
-     * 詳細
-     *
-     * @param integer $id
-     * @return Model
-     */
-    public function findOrFail(int $id): Model
-    {
-        return $this->model->find($id) ?? throw new NotFoundNewsException("お知らせ{$id}は見つかりませんでした");
     }
 }
