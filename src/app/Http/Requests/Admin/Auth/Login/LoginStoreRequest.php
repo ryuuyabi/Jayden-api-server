@@ -19,7 +19,12 @@ final class LoginStoreRequest extends BaseFormRequest
         ];
     }
 
-    public function messages()
+    /**
+     * validation messages
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
             'email.required' => 'メールアドレスを入力してください',

@@ -22,6 +22,6 @@ final class RegisterController extends BaseController
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
         $action($request->validated());
-        return $this->flashMessage('管理者作成の申請に成功しました');
+        return $this->flashMessage('管理者の作成に成功しました');
     }
 }

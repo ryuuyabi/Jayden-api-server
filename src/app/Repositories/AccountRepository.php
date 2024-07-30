@@ -6,6 +6,7 @@ use App\Concerns\Repository\RepositorySaveHandle;
 use App\Concerns\Repository\RepositoryUpdateHandle;
 use App\Models\Account;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
 final class AccountRepository implements AccountRepositoryInterface
@@ -13,8 +14,14 @@ final class AccountRepository implements AccountRepositoryInterface
     use RepositorySaveHandle;
     use RepositoryUpdateHandle;
 
+    /**
+     * @var Account model
+     */
     private Account $model;
 
+    /**
+     * instance
+     */
     public function __construct()
     {
         $this->model = new Account();
@@ -24,9 +31,9 @@ final class AccountRepository implements AccountRepositoryInterface
      * cognitoのusernameから詳細を取得します
      *
      * @param string $cognito_username
-     * @return Model
+     * @return Model|null
      */
-    public function getAccountFromUsername(string $cognito_username): Model
+    public function getAccountFromUsername(string $cognito_username): Model|null
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
@@ -44,7 +51,7 @@ final class AccountRepository implements AccountRepositoryInterface
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->model->where('cognito_username', $cognito_username)->where('cognito_sub', $cognito_sub)->first();
+        return $this->model->where('cognito_username', $cognito_username)->where('cognito_sub', $cognito_sub)->first() ?? throw new ModelNotFoundException("アカウントが見つかりませんでした");
     }
 
     /**

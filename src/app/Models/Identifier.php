@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
- * 
+ *
  *
  * @property string $sub
  * @property int $identifier_type 識別子種類
  * @property \Illuminate\Support\Carbon $created_at 作成日
  * @property \Illuminate\Support\Carbon|null $updated_at 更新日
- * @property string|null $deleted_at 削除日
+ * @property \Illuminate\Support\Carbon|null $deleted_at 削除日
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier query()
@@ -22,6 +24,8 @@ namespace App\Models;
  */
 final class Identifier extends BaseModel
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
