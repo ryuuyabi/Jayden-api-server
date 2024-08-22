@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Operator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface OperatorRepositoryInterface
@@ -37,8 +36,8 @@ interface OperatorRepositoryInterface
     /**
      * 管理側に表示する管理者一覧を取得します
      *
-     * @param Request $request
+     * @param integer $page
      * @return LengthAwarePaginator<Operator>
      */
-    public function getOperatorsLengthAwarePaginatorForOperatorSite(Request $request): LengthAwarePaginator;
+    public function getOperatorsLengthAwarePaginatorForOperatorSite(int $page = 0): LengthAwarePaginator;
 }

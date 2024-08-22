@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('sub')->unique('識別子');
             $table->unsignedTinyInteger('identifier_type')->comment('識別子種類');
             $table->dateTime('created_at')->comment('作成日');
-            $table->dateTime('updated_at')->nullable()->comment('更新日');
+            $table->dateTime('updated_at')->comment('更新日');
             $table->dateTime('deleted_at')->nullable()->comment('削除日');
         });
     }

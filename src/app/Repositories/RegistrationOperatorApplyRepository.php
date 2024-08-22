@@ -33,6 +33,6 @@ final class RegistrationOperatorApplyRepository implements RegistrationOperatorA
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->model->paginate(20);
+        return $this->model->paginate(50);
     }
 }

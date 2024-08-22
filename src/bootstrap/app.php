@@ -4,8 +4,10 @@ use App\Exceptions\PayloadInvalidValueException;
 use App\Exceptions\ValidationException;
 use App\Http\Middleware\BeforeController;
 use App\Http\Middleware\CorsSetting;
+use App\Http\Middleware\EnsureOperatorTokenIsValid;
 use Firebase\JWT\ExpiredException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -28,7 +30,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->use([
             BeforeController::class,
-            // SessionSetting::class,
             CorsSetting::class,
             \Illuminate\Http\Middleware\TrustProxies::class,
             \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -43,11 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
-        $middleware->group('api', [
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ]);
+        $middleware->appendToGroup('ensure_operator_token_is_valid', [EnsureOperatorTokenIsValid::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->respond(function (Response $response) use ($exceptions) {
@@ -60,6 +57,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 $exceptions instanceof Exception                        => Response::HTTP_INTERNAL_SERVER_ERROR,
                 // 422
                 $exceptions instanceof ValidationException              => Response::HTTP_UNPROCESSABLE_ENTITY,
+                // 500
+                $exceptions instanceof QueryException                   => Response::HTTP_INTERNAL_SERVER_ERROR,
                 default => $response->getStatusCode()
             };
 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cookings', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->comment('名前');
-            $table->text('description')->comment('説明');
-            $table->unsignedTinyInteger('type')->comment('料理区分');
-            $table->unsignedTinyInteger('prefecture')->nullable()->comment('県');
+            $table->string('name', 100)->comment('名称');
+            $table->unsignedTinyInteger('notification_type')->comment('通知区分');
+            $table->unsignedTinyInteger('notification_account_type')->comment('通知アカウント区分');
             $table->unsignedBigInteger('user_id')->nullable()->comment('ユーザID');
             $table->unsignedBigInteger('operator_id')->nullable()->comment('管理者ID');
             $table->dateTime('created_at')->comment('作成日');
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cookings');
+        Schema::dropIfExists('notifications');
     }
 };

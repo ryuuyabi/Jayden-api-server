@@ -36,14 +36,4 @@ abstract class BaseController
         Log::debug('response api data : ' . $api_data);
         return $api_data;
     }
-
-    protected function flashMessage(string $message): \Illuminate\Http\JsonResponse
-    {
-        return $this->ApiJsonFormat(['flash_message' => $message]);
-    }
-
-    protected function flashMessageError(string $message = '通信エラーが起きました'): \Illuminate\Http\JsonResponse
-    {
-        return $this->ApiJsonFormat(['flash_message' => $message]);
-    }
 }

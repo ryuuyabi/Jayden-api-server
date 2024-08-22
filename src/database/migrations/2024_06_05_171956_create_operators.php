@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('operators', function (Blueprint $table) {
             $table->id()->comment('ID');
             $table->uuid('sub')->unique()->comment('管理者サブ');
-            $table->string('personal_name', 20)->unique()->comment('個人名 @から始まる');
+            $table->string('personal_name', 30)->unique()->comment('個人名 @から始まる');
             $table->string('nickname', 30)->nullable()->comment('ニックネーム');
             $table->string('email', 100)->unique()->comment('メールアドレス');
             $table->string('ip_address')->nullable()->comment('IPアドレス');
             $table->unsignedTinyInteger('role')->comment('権限');
             $table->boolean('is_notion')->default(IsNotion::ON)->comment('通知判定');
             $table->boolean('is_active')->default(IsActive::OFF)->comment('行動判定');
+            $table->string('icon_image_url')->nullable()->comment('アイコン画像URL');
             $table->dateTime('created_at')->comment('作成日');
             $table->dateTime('updated_at')->comment('更新日');
             $table->dateTime('deleted_at')->nullable()->comment('削除日');

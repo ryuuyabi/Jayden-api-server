@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name 名称
  * @property string $body 本文
- * @property bool $is_active 行動判定
+ * @property int|string $is_active 行動判定
  * @property string $release_date 公開日
  * @property int $news_type お知らせ区分
  * @property int $user_id ユーザID
@@ -37,14 +38,6 @@ final class NewsModel extends BaseModel
 {
     protected $table = 'news';
 
-    protected const SELECT_INDEX = [
-        'id',
-        'name',
-        'body',
-        'is_active',
-        'release_date',
-    ];
-
     /**
      * The attributes that are mass assignable.
      *
@@ -54,8 +47,8 @@ final class NewsModel extends BaseModel
         'name',
         'body',
         'is_active',
-        'release_date',
         'operator_id',
+        'release_date',
     ];
 
     /**
@@ -65,13 +58,16 @@ final class NewsModel extends BaseModel
      */
     protected function casts(): array
     {
-        return [
-            'is_active' => 'boolean',
-        ];
+        return [];
     }
 
-    public function scopeSelectIndex(Builder $query)
+    /**
+     * relation operator
+     *
+     * @return HasOne<Operator>
+     */
+    public function operator(): HasOne
     {
-        $query->select(['id', 'name', 'body', 'is_active', 'release_date']);
+        return $this->hasOne(Operator::class, 'id', 'operator_id');
     }
 }

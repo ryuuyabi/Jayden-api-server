@@ -12,6 +12,8 @@ use App\Repositories\NewsReadRepository;
 use App\Repositories\NewsReadRepositoryInterface;
 use App\Repositories\NewsRepository;
 use App\Repositories\NewsRepositoryInterface;
+use App\Repositories\NotificationRepository;
+use App\Repositories\NotificationRepositoryInterface;
 use App\Repositories\OperatorRepository;
 use App\Repositories\OperatorRepositoryInterface;
 use App\Repositories\RegistrationOperatorApplyRepository;
@@ -38,6 +40,7 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(NewsReadRepositoryInterface::class, NewsReadRepository::class);
         $this->app->bind(IdentifierRepositoryInterface::class, IdentifierRepository::class);
         $this->app->bind(RegistrationOperatorApplyRepositoryInterface::class, RegistrationOperatorApplyRepository::class);
+        $this->app->bind(NotificationRepositoryInterface::class, NotificationRepository::class);
     }
 
     /**

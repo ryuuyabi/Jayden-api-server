@@ -27,7 +27,7 @@ final class OperatorController extends BaseController
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->ApiJsonFormat($action($request));
+        return $this->ApiJsonFormat($action($request->only(['page'])));
     }
 
     /**

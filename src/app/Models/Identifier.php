@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property string $sub
  * @property int $identifier_type 識別子種類
@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereIdentifierType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereSub($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Identifier whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Identifier withoutTrashed()
  * @mixin \Eloquent
  */
 final class Identifier extends BaseModel

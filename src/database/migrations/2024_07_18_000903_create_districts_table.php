@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('code', 6)->unique()->comment('地区コード');
             $table->boolean('is_active')->default(IsActive::OFF)->comment('行動判定');
             $table->dateTime('created_at')->comment('作成日');
-            $table->dateTime('updated_at')->nullable()->comment('更新日');
+            $table->dateTime('updated_at')->comment('更新日');
             $table->dateTime('deleted_at')->nullable()->comment('削除日');
             // 制約
             $table->foreign('prefecture_id')->references('id')->on('prefectures')->cascadeOnDelete();

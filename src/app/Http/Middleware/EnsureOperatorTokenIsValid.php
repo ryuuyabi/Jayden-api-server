@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Operator;
 use App\Enums\PayloadIssType;
 use App\Exceptions\PayloadInvalidValueException;
 use App\Repositories\IdentifierRepositoryInterface;
@@ -14,8 +15,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use stdClass;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-final class AuthOperatorVerification
+final class EnsureOperatorTokenIsValid
 {
     /**
      * @var JwtVerify service
@@ -59,7 +61,7 @@ final class AuthOperatorVerification
     {
         Log::debug('認証の検証を開始します');
 
-        $authorization_header = $request->header('Authorization');
+        $authorization_header = $request->header('Authorization') ?? throw new UnauthorizedHttpException('headerにAuthorizationがないです');
         $jwt = $this->getJwtFromAuthorizationHeader($authorization_header);
         Log::info("jwt: {$jwt}");
 
@@ -67,13 +69,13 @@ final class AuthOperatorVerification
             $decoded_jwt = $this->jwt_verify->decode($jwt);
             Log::debug('jwtのデコードが成功しました');
             $this->validatePayload($decoded_jwt);
+            $this->setRequestToPayload($request, $decoded_jwt->operator_sub);
         } catch (ExpiredException $e) {
             Log::info("トークンの認証時間切れです");
         } catch (PayloadInvalidValueException $e) {
             Log::info($e->getMessage());
+            abort(401);
         }
-
-        $this->setRequestToPayload($request, $decoded_jwt->operator_sub);
 
         Log::debug('認証の検証が完了しました');
 
@@ -113,6 +115,7 @@ final class AuthOperatorVerification
     private function validatePayload(stdClass $decoded_jwt)
     {
         Log::info("operator_sub in payload: {$decoded_jwt->operator_sub}");
+        /** @var Operator|null $operator */
         $operator = $this->operator_repository->findFromSub($decoded_jwt->operator_sub);
         if ($operator === null) {
             throw new PayloadInvalidValueException('payloadの管理者サブが不正値です');
@@ -124,12 +127,12 @@ final class AuthOperatorVerification
         }
 
         Log::info("iat in payload: {$decoded_jwt->iat}");
-        if (Carbon::createFromTimestamp($decoded_jwt->iat)->isPast()) {
+        if (Carbon::createFromTimestamp($decoded_jwt->iat, config('app.timezone'))->isFuture()) {
             throw new PayloadInvalidValueException('payloadのトークン発行時間が不正値です');
         }
 
         Log::info("exp in payload: {$decoded_jwt->exp}");
-        if (Carbon::createFromTimestamp($decoded_jwt->exp)->isFuture()) {
+        if (Carbon::createFromTimestamp($decoded_jwt->exp, config('app.timezone'))->isPast()) {
             throw new PayloadInvalidValueException('payloadのトークン期限時間が不正値です');
         }
 

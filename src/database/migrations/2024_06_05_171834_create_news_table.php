@@ -16,11 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->comment('名称');
             $table->text('body', 500)->comment('本文');
-            $table->boolean('is_active')->default(IsActive::OFF)->comment('行動判定');
-            $table->string('release_date')->comment('公開日');
+            $table->boolean('is_active')->comment('行動判定');
             $table->unsignedTinyInteger('news_type')->comment('お知らせ区分');
-            $table->unsignedInteger('user_id')->comment('ユーザID');
-            $table->unsignedInteger('operator_id')->comment('管理者ID');
+            $table->unsignedInteger('operator_id')->nullable()->comment('管理者ID');
+            $table->dateTime('release_date')->comment('公開日');
             $table->dateTime('created_at')->comment('作成日');
             $table->dateTime('updated_at')->comment('更新日');
         });

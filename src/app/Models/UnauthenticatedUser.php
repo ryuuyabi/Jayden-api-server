@@ -18,6 +18,16 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereExpiresAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereUpdatedAt($value)
+ * @property string $personal_name 個人名 @から始まる
+ * @property string|null $nickname ニックネーム
+ * @property int $status ステータス
+ * @property int $is_notion 通知判定
+ * @property int $is_active 行動判定
+ * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereIsNotion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereNickname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser wherePersonalName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UnauthenticatedUser whereStatus($value)
  * @mixin \Eloquent
  */
 final class UnauthenticatedUser extends BaseModel

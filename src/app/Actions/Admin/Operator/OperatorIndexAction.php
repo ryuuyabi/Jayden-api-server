@@ -26,13 +26,13 @@ final class OperatorIndexAction
     /**
      * 管理者一覧を取得します
      *
-     * @param Request $request
-     * @return array
+     * @param array<string, mixed> $request_data
+     * @return array<string, mixed>
      */
-    public function __invoke(Request $request): array
+    public function __invoke(array $request_data): array
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->operator_repository->getOperatorsLengthAwarePaginatorForOperatorSite($request)->toArray();
+        return $this->operator_repository->getOperatorsLengthAwarePaginatorForOperatorSite($request_data['page'])->toArray();
     }
 }

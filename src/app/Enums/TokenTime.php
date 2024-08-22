@@ -15,9 +15,7 @@ enum TokenTime: int
      */
     private function getDeadlineCarbon(): Carbon
     {
-        return match ($this) {
-            self::OPERATOR_ACCESS => now()->addMinutes(self::OPERATOR_ACCESS),
-        };
+        return now()->addMinutes($this->value)->copy();
     }
 
     /**
@@ -27,8 +25,6 @@ enum TokenTime: int
      */
     public function getDeadlineUnixTime(): int|float|string
     {
-        return match ($this) {
-            self::OPERATOR_ACCESS => self::OPERATOR_ACCESS->getDeadlineCarbon()->timestamp,
-        };
+        return $this->getDeadlineCarbon()->timestamp;
     }
 }

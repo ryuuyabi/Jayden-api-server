@@ -9,8 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * 
  *
  * @property int $id
+ * @property string $personal_name 個人名 @から始まる
+ * @property string|null $nickname ニックネーム
  * @property string $email メールアドレス
- * @property int $registration_type ユーザ登録タイプ
+ * @property int|string $status ステータス
+ * @property int|string $is_notion 通知判定
+ * @property int|string $is_active 行動判定
  * @property \Illuminate\Support\Carbon $created_at 作成日
  * @property \Illuminate\Support\Carbon $updated_at 更新日
  * @property string|null $deleted_at 削除日
@@ -18,13 +22,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
- * @method static Builder|User selectUserIndexForOperator()
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereDeletedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereId($value)
- * @method static Builder|User whereRegistrationType($value)
+ * @method static Builder|User whereIsActive($value)
+ * @method static Builder|User whereIsNotion($value)
+ * @method static Builder|User whereNickname($value)
+ * @method static Builder|User wherePersonalName($value)
+ * @method static Builder|User whereStatus($value)
  * @method static Builder|User whereUpdatedAt($value)
+ * @property string $sub ユーザサブ
+ * @method static Builder|User whereSub($value)
  * @mixin \Eloquent
  */
 final class User extends BaseModel
@@ -35,7 +44,13 @@ final class User extends BaseModel
      * @var array<int, string>
      */
     protected $fillable = [
+        'sub',
+        'personal_name',
+        'nickname',
         'email',
+        'status',
+        'is_notion',
+        'is_active',
     ];
 
     /**
@@ -58,15 +73,10 @@ final class User extends BaseModel
     /**
      * user_profilesテーブルを取得
      *
-     * @return HasOne
+     * @return HasOne<UserProfile>
      */
     public function userProfile(): HasOne
     {
         return $this->hasOne(UserProfile::class, 'id', 'user_id');
-    }
-
-    public function scopeSelectUserIndexForOperator(Builder $query): void
-    {
-        $query->select(['id', 'email', 'created_at']);
     }
 }

@@ -2,48 +2,33 @@
 
 namespace App\Repositories;
 
+use App\Concerns\Repository\RepositoryFindHandle;
+use App\Concerns\Repository\RepositorySaveHandle;
+use App\Enums\IsActive;
+use App\Enums\IsNotion;
+use App\Enums\User\UserStatus;
 use App\Exceptions\NotFoundUserException;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 final class UserRepository implements UserRepositoryInterface
 {
+    use RepositorySaveHandle;
+    use RepositoryFindHandle;
+
+    /**
+     * @var User model
+     */
     private User $model;
 
+    /**
+     * instance
+     */
     public function __construct()
     {
         $this->model = new User();
-    }
-
-    /**
-     * 新規登録
-     *
-     * @param array $store_data
-     * @return Model
-     */
-    public function save(array $store_data, bool $is_fetch_result = false): Model|null
-    {
-        Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
-
-        $model = $this->model;
-        $model->fill($store_data)->save();
-        return $model->refresh();
-    }
-
-    /**
-     * 詳細を取得
-     *
-     * @param integer $id
-     * @return Model
-     */
-    public function findOrFail(int $id): Model
-    {
-        Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
-
-        return $this->model->find($id) ?? throw new NotFoundUserException("ユーザ{$id}が見つかりませんでした");
     }
 
     /**
@@ -62,36 +47,24 @@ final class UserRepository implements UserRepositoryInterface
     /**
      * 管理側 ユーザ一覧をページネーションで取得
      *
-     * @return LengthAwarePaginator
+     * @param integer $page
+     * @return LengthAwarePaginator<User>
      */
-    public function getUsersLengthAwarePaginatorForOperatorSite(): LengthAwarePaginator
+    public function getUsersLengthAwarePaginatorForOperatorSite(int $page): LengthAwarePaginator
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        $users = $this->model->query()
-            ->selectUserIndexForOperator()
-            ->with('user_profile')
-            ->paginate(20);
-        return $users;
-    }
+        $query = $this->model->query();
 
-    /**
-     * ログイン可能ユーザを取得
-     *
-     * @param string $email
-     * @param string $password
-     * @return Model
-     */
-    public function getCanAuthUser(string $email, string $password): Model
-    {
-        Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
+        /** @var LengthAwarePaginator<User> */
+        $query_paginate = $query->paginate(50, ['id', 'personal_name', 'email', 'status', 'is_notion', 'is_active'], 'page', $page + 1);
 
-        $user = $this->model->where('email', $email)->first() ?? throw new NotFoundUserException("メールアドレス : {$email}のユーザが見つかりませんでした");
-        if (Hash::check($password, $user->password)) {
-            Log::debug('パスワード検証が成功しました');
-        } else {
-            throw new NotFoundUserException("パスワード : {$password}のユーザが見つかりませんでした");
-        }
-        return $user;
+        $query_paginate->getCollection()->transform(function ($user) {
+            $user->status = UserStatus::from($user->status)->description();
+            $user->is_active = IsActive::from($user->is_active)->description();
+            $user->is_notion = IsNotion::from($user->is_notion)->description();
+            return $user;
+        });
+        return $query_paginate;
     }
 }

@@ -14,6 +14,10 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [8.3]
+        laravel: [11.*]
     steps:
       - name: checkout code
         uses: actions/checkout@v4

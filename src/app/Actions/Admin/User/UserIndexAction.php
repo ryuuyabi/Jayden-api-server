@@ -25,12 +25,13 @@ final class UserIndexAction
     /**
      * ユーザ一覧を取得します
      *
-     * @return array
+     * @param array<string, mixed> $request_data
+     * @return array<string, mixed>
      */
-    public function __invoke(): array
+    public function __invoke(array $request_data): array
     {
         Log::debug(__CLASS__ . '::' . __FUNCTION__ . ' called:(' . __LINE__ . ')');
 
-        return $this->user_repository->getUsersLengthAwarePaginatorForOperatorSite()->toArray();
+        return $this->user_repository->getUsersLengthAwarePaginatorForOperatorSite($request_data['page'])->toArray();
     }
 }
